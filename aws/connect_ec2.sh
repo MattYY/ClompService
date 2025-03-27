@@ -1,0 +1,1 @@
+ssh -i "ClompEC2.pem" ec2-user@ec2-44-192-54-102.compute-1.amazonaws.com
