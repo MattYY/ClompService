@@ -9,24 +9,24 @@ jobs:
     environment: staging
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Deploy to EC2
-      env:
-        PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
-        HOST: ${{ vars.EC2_HOST }}
-        USER: ${{ vars.EC2_USER }}
-      run: |
-        echo "$PRIVATE_KEY" > github-ec2.pem && chmod 600 github-ec2.pem
-        ssh -o StrictHostKeyChecking=no -i github-ec2.pem ${USER}@${HOST} '
-        
-        # Install Java/JDK
-        sudo yum install java-23-amazon-corretto-headless
-        
-        # Checkout Repo
-        git@github.com:MattYY/Taglist.git
-        
-        echo "Current directory: $(pwd)"
-        echo "Listing home directory:"
-        ls -la ~
-        '
+      - name: Deploy to EC2
+        env:
+          PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+          HOST: ${{ vars.EC2_HOST }}
+          USER: ${{ vars.EC2_USER }}
+        run: |
+          echo "$PRIVATE_KEY" > github-ec2.pem && chmod 600 github-ec2.pem
+          ssh -o StrictHostKeyChecking=no -i github-ec2.pem ${USER}@${HOST} '
+          
+          # Install Java/JDK
+          sudo yum install java-23-amazon-corretto-headless
+          
+          # Checkout Repo
+          git@github.com:MattYY/Taglist.git
+          
+          echo "Current directory: $(pwd)"
+          echo "Listing home directory:"
+          ls -la ~
+          '
